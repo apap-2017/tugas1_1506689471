@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Cari Penduduk</title>
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/jquery.dataTables.min.css"></link>
+	<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SI Kependudukan</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Cari Data</a></li>
+      <li><a href="/penduduk/tambah">Tambah Penduduk</a></li>
+      <li><a href="/keluarga/tambah">Tambah Keluarga</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<div class="container">
+  <h3 th:text="'Lihat Data Penduduk di ' + ${kota.nama_kota} + ' Kecamatan ' + ${kecamatan.nama_kecamatan} +
+   ' Kelurahan ' + ${kelurahan.nama_kelurahan}">Lihat Data Penduduk</h3>
+  <form action="/penduduk/cari" method="GET">
+  <div class="col-sm-5" style="display: inline-block" th:if="${termuda != null}">
+				<h3 style="text-align: center">Penduduk Termuda</h3>
+				<table class="table table-bordered" style="text-align: center" >
+					<tr class="active">
+						<td>Nik</td>
+						<td th:text="${termuda.nik}">NIK</td>
+					</tr>
+					<tr>
+						<td>Nama</td>
+						<td th:text="${termuda.nama}">Nama</td>
+					</tr>
+					<tr class="active">
+						<td>Tanggal Lahir</td>
+						<td th:text="${termuda.tanggal_lahir}">Tanggal Lahir</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-sm-5" style="float: right" th:if="${tertua != null}">
+				<h3 style="text-align: center">Penduduk Tertua</h3>
+				<table class="table table-bordered" style="text-align: center">
+					<tr class="active">
+						<td>Nik</td>
+						<td th:text="${tertua.nik}">NIK</td>
+					</tr>
+					<tr>
+						<td>Nama</td>
+						<td th:text="${tertua.nama}">Nama</td>
+					</tr>
+					<tr class="active">
+						<td>Tanggal Lahir</td>
+						<td th:text="${tertua.tanggal_lahir}">Tanggal Lahir</td>
+					</tr>
+				</table>
+			</div>
+			<hr/>
+    <table id="penduduk" class="table">
+      <thead>
+          <tr>
+              <th>NIK</th>
+              <th>Nama</th>
+              <th>Jenis Kelamin</th>
+          </tr>
+      </thead>
+		<tbody>
+          <tr th:each="penduduk,iterationStatus: ${listPenduduk}">
+              <th th:text=" ${penduduk.nik}">Penduduk NIK</th>
+              <th th:text=" ${penduduk.nama}">Penduduk Nama</th>
+      		  <th th:text=" ${penduduk.jenis_kelamin == 0 ? 'Laki-laki' : 'Perempuan'}">Penduduk Jenis Kelamin</th>
+          </tr>
+        </tbody>
+  </table>
+  </form>
+</div>
+</body>
+<footer>
+  <div th:replace="fragments/fragment :: footer"></div>
+</footer>
+
+<script>
+ 	   $(document).ready(function() {
+    	$('#penduduk').DataTable();
+    });
+</script>
+</html>

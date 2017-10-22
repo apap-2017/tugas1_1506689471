@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Home</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SI Kependudukan</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Cari Data</a></li>
+      <li><a href="/penduduk/tambah">Tambah Penduduk</a></li>
+      <li><a href="/keluarga/tambah">Tambah Keluarga</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+  <h3>Sistem Informasi Kependudukan Online Provinsi DKI Jakarta</h3>
+  <p>Selamat datang di Sistem Informasi Kependudukan Online Provinsi DKI Jakarta</p>
+  <hr/>
+  <h4> Lihat Data Penduduk Berdasarkan NIK </h4>
+  <p> Masukkan Nomor Induk Kependudukan </p>
+  
+  <form action="/penduduk" method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" name="nik" placeholder="Masukkan NIK"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Lihat</button>
+  </form>
+  <hr/>
+  <h4> Lihat Data Keluarga Berdasarkan NIK </h4>
+  <p> Masukkan Nomor Kartu Keluarga </p>
+  <form action="/keluarga" method="get">
+    <div class="form-group">
+      <input type="text" class="form-control" name="nkk" placeholder="Masukkan Nomor KK"/>
+    </div>
+    <button type="submit" class="btn btn-primary">Lihat</button>
+  </form>
+</div>
+<footer>
+  <div th:replace="fragments/fragment :: footer"></div>
+</footer>
+</body>
+</html>

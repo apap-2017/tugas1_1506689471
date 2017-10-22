@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Tambah Keluarga</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+  
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SI Kependudukan</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li><a href="/">Home</a></li>
+      <li><a href="#">Cari Data</a></li>
+      <li><a href="/penduduk/tambah">Tambah Penduduk</a></li>
+      <li class="active"><a href="/keluarga/tambah">Tambah Keluarga</a></li>
+    </ul>
+  </div>
+</nav>
+  
+<div class="container">
+  <h2>Tambah Keluarga</h2>
+  <form action="/keluarga/tambah" method="POST" th:object="${keluarga}">
+    
+    <div class="form-group">
+      <label for="alamat">Alamat</label>
+      <input type="text" class="form-control" name="alamat" placeholder="Alamat" th:value="${keluarga.alamat}" th:field="*{alamat}" required = "true"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="rt">RT</label>
+      <input type="text" class="form-control" name="rt" placeholder="RT" th:value="${keluarga.rt}" th:field="*{rt}" required = "true"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="RW">RW</label>
+      <input type="text" class="form-control" name="rw" placeholder="RW" th:value="${keluarga.rw}" th:field="*{rw}" required = "true"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="kelurahan">Kelurahan/Desa</label>
+      <select name="id_kelurahan" class="form-control selectpicker" data-live-search="true" th:field="*{id_kelurahan}" id="kelurahan" required = "true">
+      	<option value="">PILIH KELURAHAN</option>
+      	<option th:each="kelurahan: ${allKelurahan}" th:value="${kelurahan.id}" th:text="${kelurahan.nama_kelurahan}" asdsad="'[[${kelurahan.nama_kota}]]'"> </option>
+      </select>
+    </div>
+    
+    <div class="form-group">
+      <label for="kecamatan">Kecamatan</label>
+      <input type="text" class="form-control" name="kecamatan" placeholder="Kecamatan" id="kecamatan" readonly="readonly" required = "true"/>
+    </div>
+    
+    <div class="form-group">
+      <label for="kota">Kota</label>
+      <input type="text" class="form-control" name="kota" placeholder="Kota" id="kota" readonly="readonly" required = "true"/>
+    </div>
+    <input type="hidden" name="kode_kecamatan" id="kode_kecamatan"/>
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </form>
+</div>
+</body>
+<footer>
+  <div th:replace="fragments/fragment :: footer"></div>
+</footer>
+<script th:inline="javascript">
+	var allKelurahan = [[${allKelurahan}]];
+	var kelurahans = {};
+	
+	$( document ).ready(function() {
+		allKelurahan.forEach(function(kelurahan) {
+			kelurahans[kelurahan.id] = kelurahan;	
+		})
+	});
+	
+	$('#kelurahan').on('change', function() {
+	  $('#kecamatan').val(kelurahans[this.value].nama_kecamatan);
+	  $('#kota').val(kelurahans[this.value].nama_kota);
+	  $('#kode_kecamatan').val(kelurahans[this.value].kode_kecamatan);
+	})
+</script>
+</html>

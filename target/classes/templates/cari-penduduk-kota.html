@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Cari Penduduk</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"></link>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="	"></script>
+</head>
+
+<body>
+<nav class="navbar navbar-inverse">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#">SI Kependudukan</a>
+    </div>
+    <ul class="nav navbar-nav">
+      <li class="active"><a href="#">Home</a></li>
+      <li><a href="#">Cari Data</a></li>
+      <li><a href="/penduduk/tambah">Tambah Penduduk</a></li>
+      <li><a href="/keluarga/tambah">Tambah Keluarga</a></li>
+    </ul>
+  </div>
+</nav>
+ 
+<div class="container">
+  <h3>Lihat Data Penduduk Berdasarkan Kota</h3>
+  <form action="/penduduk/cari" method="GET">
+    <div class="form-group">
+      <label for="kota">Kota</label>
+      <select name="id_kota" class="form-control selectpicker" data-live-search="true" id="kota">
+      	<option value="">PILIH KOTA</option>
+      	<option th:each="kota,i: ${listKota}" th:text="${kota.nama_kota}" th:value="${kota.id}">Kota</option>
+      </select>
+    </div>
+    
+    <button type="submit" class="btn btn-primary">Simpan</button>
+  </form>
+</div>
+</body>
+<footer>
+  <div th:replace="fragments/fragment :: footer"></div>
+</footer>
+</html>
